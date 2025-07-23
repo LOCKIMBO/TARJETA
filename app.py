@@ -42,13 +42,13 @@ for index, row in df.iterrows():
             try:
                 response = requests.get(foto_url)
                 img = Image.open(BytesIO(response.content))
-                st.image(img, use_column_width=True)
+                st.image(img, use_container_width=True)
             except Exception as e:
                 st.warning(f"No se pudo cargar la imagen desde la URL: {foto_url}")
         else:
             if os.path.exists(foto_url):
                 img = Image.open(foto_url)
-                st.image(img, use_column_width=True)
+                st.image(img, use_container_width=True)
             else:
                 st.warning(f"No se encontró la imagen: {foto_url}")
 
