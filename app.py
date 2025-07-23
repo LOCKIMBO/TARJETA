@@ -27,6 +27,17 @@ for index, row in df.iterrows():
 
         # Mostrar imagen desde URL si es válida
         foto_url = str(row['Foto'])
+
+        # Convertir Google Drive 'open?id=' links a 'uc?id=' para descarga directa
+        if 'drive.google.com/open?id=' in foto_url:
+            foto_url = foto_url.replace('open?id=', 'uc?id=')
+        elif 'drive.google.com/file/d/' in foto_url:
+            try:
+                file_id = foto_url.split('/file/d/')[1].split('/')[0]
+                foto_url = f"https://drive.google.com/uc?id={file_id}"
+            except:
+                pass
+
         if foto_url.startswith('http'):
             try:
                 response = requests.get(foto_url)
@@ -48,4 +59,5 @@ for index, row in df.iterrows():
 
 st.markdown("---")
 st.success(f"💰 Gasto total registrado: S/{total:.2f}")
+
 
