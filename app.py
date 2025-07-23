@@ -13,7 +13,9 @@ st.title("📔 Mi Diario de Compras")
 # Leer datos desde Google Sheets publicado como CSV
 sheet_url = "https://docs.google.com/spreadsheets/d/1VSnFxdxVMhjlH5qFGqG1w7Ls2LECEAIvoN9ZxXZQQ2M/export?format=csv"
 df = pd.read_csv(sheet_url)
-df['Fecha'] = pd.to_datetime(df['Fecha'], format='%d/%m/%Y', errors='coerce')
+
+# Convertir la columna 'Timestamp' al formato datetime
+df['Fecha'] = pd.to_datetime(df['Timestamp'], format='%m/%d/%Y %H:%M:%S', errors='coerce')
 df = df.sort_values(by='Fecha', ascending=False)
 
 # Mostrar cada compra
@@ -46,3 +48,4 @@ for index, row in df.iterrows():
 
 st.markdown("---")
 st.success(f"💰 Gasto total registrado: S/{total:.2f}")
+
